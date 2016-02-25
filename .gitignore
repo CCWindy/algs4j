@@ -16,6 +16,3 @@ out
 hs_err_pid*
 
 !lib/algs4.jar
-
-*.iml
-.idea/
