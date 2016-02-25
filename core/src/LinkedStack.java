@@ -4,7 +4,7 @@ import java.util.Iterator;
  * {@code Stack}-like structure, implemented by using a linked list.
  */
 public class LinkedStack<E> implements Stack<E> {
-    private Node first = NULL;
+    private Node first = null;
     private class Node{
         Node next;
         E item;
@@ -41,7 +41,7 @@ public class LinkedStack<E> implements Stack<E> {
     private class ListIterator implements Iterator<E>{
         private Node first;
         public boolean hasNext() {
-            return first != NULL;
+            return first != null;
         }
         public void remove () {
             throw UnsupportedOperationException;    /* not supported */
@@ -58,7 +58,17 @@ public class LinkedStack<E> implements Stack<E> {
     @Override
     public boolean isEmpty() {
         // TODO to be implemented
-        return first == NULL;
+        return first == null;
+    }
+
+    public static void main(String[] args){
+        LinkedStack<Integer> test = new LinkedStack<Integer>();
+        for (int i = 1;i <= 10;i++)
+        test.push(i);
+        if(test.hasNext())
+            test.peek();
+        while(!test.isEmpty())
+            System.out.println(test.pop() + " ");
     }
 
 }
