@@ -21,9 +21,10 @@ public class LinkedStack<E> implements Stack<E> {
     @Override
     public E pop() {
         // TODO to be implemented
-        item = first.item;
+        Node current = new Node();
+        current.item = first.item;
         first = first.next;
-        return item;
+        return current.item;
     }
 
     @Override
@@ -44,14 +45,13 @@ public class LinkedStack<E> implements Stack<E> {
             return first != null;
         }
         public void remove () {
-            throw UnsupportedOperationException;    /* not supported */
+               /* not supported */
         }
         public E next(){
-            if (!hasNext())
-                throw NoSuchElementException;
-            item = first.item;
+            Node current = new Node();
+            current.item = first.item;
             first = first.next;
-            return item;
+            return current.item;
         }
     }
 
@@ -61,14 +61,5 @@ public class LinkedStack<E> implements Stack<E> {
         return first == null;
     }
 
-    public static void main(String[] args){
-        LinkedStack<Integer> test = new LinkedStack<Integer>();
-        for (int i = 1;i <= 10;i++)
-        test.push(i);
-        if(test.hasNext())
-            test.peek();
-        while(!test.isEmpty())
-            System.out.println(test.pop() + " ");
-    }
 
 }
