@@ -61,10 +61,10 @@ public class ArrayStack<E> implements Stack<E> {
         return n == 0;
     }
 
-    private E[] resize(E[] s, int n){
+    private void resize(E[] s, int n){
         E[] copy =(E[]) new Object[n];
         for (int i = 0; i < s.length; i++ )
             copy[i] = s[i];
-        return copy;
+        s = copy;
     }
 }
