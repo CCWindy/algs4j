@@ -14,9 +14,9 @@ public class ArrayStack<E> implements Stack<E> {
     @Override
     public void push(E item) {
         // TODO to be implemented
-        s[n++] = item;
         if (n == s.length)
-            resize(s, n*2);
+            resize(s, s.length * 2);
+        s[n++] = item;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ArrayStack<E> implements Stack<E> {
     }
 
     private class ArrayIterator implements Iterator<E>{
-        private int current = n-1;
+        private int current = n;
         public boolean hasNext() {
             return current != 0;
         }
@@ -50,7 +50,7 @@ public class ArrayStack<E> implements Stack<E> {
                /* not supported */
         }
         public E next(){
-            E item = s[current--];
+            E item = s[--current];
             return item;
         }
     }
@@ -63,8 +63,11 @@ public class ArrayStack<E> implements Stack<E> {
 
     private void resize(E[] s, int n){
         E[] copy =(E[]) new Object[n];
-        for (int i = 0; i < s.length; i++ )
+        for (int i = 0; i < s.length; i++ ) {
+            if (s[i] == null)
+                break;
             copy[i] = s[i];
+        }
         s = copy;
     }
 }
