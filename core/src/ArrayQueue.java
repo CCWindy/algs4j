@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * {@code Queue}-like structure, implemented by using a resizing array.
@@ -24,6 +25,8 @@ public class ArrayQueue<E> implements Queue<E> {
     @Override
     public E dequeue() {
         // TODO to be implemented
+        if (isEmpty())
+            throw new NoSuchElementException();
         E item = s[head];
         head = (head +1) % s.length;
         int total;
@@ -39,6 +42,8 @@ public class ArrayQueue<E> implements Queue<E> {
     @Override
     public E head() {
         // TODO to be implemented
+        if (isEmpty())
+            throw new NoSuchElementException();
         return s[head];
     }
 

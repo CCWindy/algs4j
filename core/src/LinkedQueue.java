@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * {@code Queue}-like structure, implemented by using a linked list.
@@ -25,6 +26,8 @@ public class LinkedQueue<E> implements Queue<E> {
     @Override
     public E dequeue() {
         // TODO to be implemented
+        if (isEmpty())
+            throw new NoSuchElementException();
         Node current = new Node();
         current.item = first.item;
         first = first.next;
@@ -34,6 +37,8 @@ public class LinkedQueue<E> implements Queue<E> {
     @Override
     public E head() {
         // TODO to be implemented
+        if (isEmpty())
+            throw new NoSuchElementException();
         return first.item;
     }
 

@@ -1,3 +1,4 @@
+import java.util.EmptyStackException;
 import java.util.Iterator;
 
 /**
@@ -22,6 +23,8 @@ public class ArrayStack<E> implements Stack<E> {
     @Override
     public E pop() {
         // TODO to be implemented
+        if (isEmpty())
+            throw new EmptyStackException();
         E item = s[--n];
         s[n] = null;
         if (n <= s.length / 4.0 && n >0)
@@ -32,6 +35,8 @@ public class ArrayStack<E> implements Stack<E> {
     @Override
     public E peek() {
         // TODO to be implemented
+        if (isEmpty())
+            throw new EmptyStackException();
         return s[n-1];
     }
 

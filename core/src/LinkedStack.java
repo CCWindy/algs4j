@@ -1,3 +1,4 @@
+import java.util.EmptyStackException;
 import java.util.Iterator;
 
 /**
@@ -21,6 +22,8 @@ public class LinkedStack<E> implements Stack<E> {
     @Override
     public E pop() {
         // TODO to be implemented
+        if (isEmpty())
+            throw new EmptyStackException();
         Node current = new Node();
         current.item = first.item;
         first = first.next;
@@ -30,6 +33,8 @@ public class LinkedStack<E> implements Stack<E> {
     @Override
     public E peek() {
         // TODO to be implemented
+        if (isEmpty())
+            throw new EmptyStackException();
         return first.item;
     }
 
