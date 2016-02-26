@@ -1,8 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.EmptyStackException;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.EmptyStackException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -25,12 +26,12 @@ public abstract class StackTest {
         stack = getStack();
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test(expected = EmptyStackException.class)
     public void testEmptyPop() {
         stack.pop();
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test(expected = EmptyStackException.class)
     public void testEmptyPeek() {
         stack.peek();
     }
@@ -44,11 +45,11 @@ public abstract class StackTest {
         assertThat(stack.isEmpty(), is(true));
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test(expected = EmptyStackException.class)
     public void testExhaustedPop() {
         stack.push(1);
         stack.pop();
-        stack.pop(); // Should trigger NoSuchElementException
+        stack.pop(); // Should trigger EmptyStackException
     }
 
     @Test
@@ -64,7 +65,7 @@ public abstract class StackTest {
         assertThat(stack.pop(), is(5));
         assertThat(stack.pop(), is(6));
         assertThat(stack.pop(), is(4));
-        assertThat(stack.pop(), is(1));
+        assertThat(stack.pop(), is(2));
     }
 
     @Test
@@ -91,7 +92,7 @@ public abstract class StackTest {
         assertThat(iter.hasNext(), is(false));
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test(expected = EmptyStackException.class)
     public void testEmptyIteratorNext() {
         Iterator<Integer> iter = stack.iterator();
         iter.next();
