@@ -8,7 +8,7 @@ public class ArrayStack<E> implements Stack<E> {
     private int n = 0;
 
     public ArrayStack(){
-        s = new E[1];
+        s = (E[]) new Object[1];
     }
 
     @Override
@@ -26,7 +26,7 @@ public class ArrayStack<E> implements Stack<E> {
         s[n] = null;
         if (n <= s.length / 4.0 && n >0)
             resize(s, s.length / 2);
-        return null;
+        return item;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ArrayStack<E> implements Stack<E> {
     }
 
     private E[] resize(E[] s, int n){
-        E[] copy = new E[n];
+        E[] copy =(E[]) new Object[n];
         for (int i = 0; i < s.length; i++ )
             copy[i] = s[i];
         return copy;
