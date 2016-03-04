@@ -1,3 +1,4 @@
+import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -6,6 +7,7 @@ import java.util.NoSuchElementException;
  */
 public class LinkedQueue<E> implements Queue<E> {
     private Node first = null;
+    private Node current = null;
 
     private class Node{
         Node next;
@@ -14,12 +16,18 @@ public class LinkedQueue<E> implements Queue<E> {
 
     @Override
     public void enqueue(E item) {
-        Node current = first;
-        while (current!= null)
+        if (current == null) {
+            current = new Node();
+            current.item = item;
+            current.next = null;
+            first = current;
+        }
+        else {
+            current.next = new Node();
             current = current.next;
-        current = new Node();
-        current.item = item;
-        current.next = null;
+            current.item = item;
+            current.next = null;
+        }
     }
 
     @Override
@@ -45,17 +53,20 @@ public class LinkedQueue<E> implements Queue<E> {
     }
 
     private class ListIterator implements Iterator<E>{
-        private Node first;
+        private Node f = first;
         public boolean hasNext() {
-            return first != null;
+            return f != null;
         }
         public void remove () {
                /* not supported */
+            throw new UnsupportedOperationException();
         }
         public E next(){
+            if (!hasNext())
+                throw new NoSuchElementException();
             Node current = new Node();
-            current.item = first.item;
-            first = first.next;
+            current.item = f.item;
+            f = f.next;
             return current.item;
         }
     }
@@ -64,5 +75,5 @@ public class LinkedQueue<E> implements Queue<E> {
     public boolean isEmpty() {
         return first == null;
     }
-
+    
 }
