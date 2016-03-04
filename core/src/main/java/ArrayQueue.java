@@ -15,8 +15,9 @@ public class ArrayQueue<E> implements Queue<E> {
 
     @Override
     public void enqueue(E item) {
-        if ((tail + 1) % s.length == head)
-            resize(s, s.length * 2);
+        if ((tail + 1) % s.length == head) {
+            s = resize(s, s.length * 2);
+        }
         s[tail] = item;
         tail = (tail + 1) % s.length;
     }
@@ -26,6 +27,7 @@ public class ArrayQueue<E> implements Queue<E> {
         if (isEmpty())
             throw new NoSuchElementException();
         E item = s[head];
+        s[head] = null;
         head = (head +1) % s.length;
         int total;
         if (tail >= head)
@@ -33,7 +35,7 @@ public class ArrayQueue<E> implements Queue<E> {
         else
             total = tail + s.length - head;
         if (total < s.length / 4.0 && total > 0)
-            resize(s, s.length / 2);
+            s = resize(s, s.length / 2);
         return item;
     }
 
@@ -55,9 +57,12 @@ public class ArrayQueue<E> implements Queue<E> {
             return current != tail;
         }
         public void remove () {
+            throw new UnsupportedOperationException();
                /* not supported */
         }
         public E next(){
+            if (!hasNext())
+                throw new NoSuchElementException();
             E item = s[current];
             current = (current + 1) % s.length;
             return item;
@@ -70,17 +75,18 @@ public class ArrayQueue<E> implements Queue<E> {
 
     }
 
-    private void resize(E[] s, int n){
+    private E[] resize(E[] s, int n){
         E[] copy = (E[]) new Object[n];
         int t = head;
         head = 0;
         tail = 0;
         for (int i = 0; i < s.length; i++) {
-            if (s[t++ % s.length] == null)
+            if (s[t % s.length] == null)
                 break;
             copy[i] = s[t++ % s.length];
             tail++;
         }
-        s = copy;
+        return copy;
     }
+
 }
