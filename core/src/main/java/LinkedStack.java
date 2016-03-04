@@ -1,5 +1,6 @@
 import java.util.EmptyStackException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * {@code Stack}-like structure, implemented by using a linked list.
@@ -47,8 +48,11 @@ public class LinkedStack<E> implements Stack<E> {
         }
         public void remove () {
                /* not supported */
+            throw new UnsupportedOperationException();
         }
         public E next(){
+            if (!hasNext())
+                throw new NoSuchElementException();
             Node current = new Node();
             current.item = first.item;
             first = first.next;
