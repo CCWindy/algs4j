@@ -1,5 +1,6 @@
 import java.util.EmptyStackException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * {@code Stack}-like structure, implemented by using a resizing array.
@@ -15,7 +16,7 @@ public class ArrayStack<E> implements Stack<E> {
     @Override
     public void push(E item) {
         if (n == s.length)
-            resize(s, s.length * 2);
+           s = resize(s, s.length * 2);
         s[n++] = item;
     }
 
@@ -26,7 +27,7 @@ public class ArrayStack<E> implements Stack<E> {
         E item = s[--n];
         s[n] = null;
         if (n <= s.length / 4.0 && n >0)
-            resize(s, s.length / 2);
+           s = resize(s, s.length / 2);
         return item;
     }
 
@@ -49,8 +50,11 @@ public class ArrayStack<E> implements Stack<E> {
         }
         public void remove () {
                /* not supported */
+            throw new UnsupportedOperationException();
         }
         public E next(){
+            if (!hasNext())
+                throw new EmptyStackException();
             E item = s[--current];
             return item;
         }
@@ -61,13 +65,13 @@ public class ArrayStack<E> implements Stack<E> {
         return n == 0;
     }
 
-    private void resize(E[] s, int n){
+    private E[] resize(E[] s, int n){
         E[] copy =(E[]) new Object[n];
         for (int i = 0; i < s.length; i++ ) {
             if (s[i] == null)
                 break;
             copy[i] = s[i];
         }
-        s = copy;
+        return copy;
     }
 }
